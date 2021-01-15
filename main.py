@@ -1,6 +1,8 @@
 import numpy as np
 import time
 import agentConstructor
+import plotly.graph_objects as go
+
 
 """
 This is a simulation for firefly synchronisation
@@ -47,8 +49,12 @@ last_frame_time = time.time()
 # empty numpy array for environmental state
 ids = np.arange(0, Params.num_agents)
 
+# # NEW for plotting: x-axis
+plot_time_stamp = [] # list containing the x-axis of the plot (time)
+counter = 0
 
 while running:
+  
   last_frame_time = StepTime(last_frame_time)  # makes loop controllable in realtime
 
   # TODO: increase each agent's phase and SendFlash if phase >= 1
@@ -56,4 +62,18 @@ while running:
   # TODO: send agent flashes to connected neighbors
 
   # TODO: generate new graph for random connectivity every 10 sec
+  
+  
+  # # NEW PLOT DATA
+  
+  # TODO: insert this line: for each agent that fired, append the current timestamp with this line
+  plot_time_stamp.append(counter / Params.fps)
 
+  
+  # plot_agent is a list containing all the agents that fired this iteration
+  if (counter % 500 == 0 and counter > 0 ):
+    fig = go.Figure(data=go.Scatter(x=plot_time_stamp, y=plot_agent, mode='markers',
+                                    marker=dict(size=4.5, color="Blue", opacity=0.6)))
+    fig.show()
+
+  counter += 1
