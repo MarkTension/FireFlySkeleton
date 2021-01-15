@@ -23,7 +23,7 @@ class Params:
 
 # TODO: generate adjacency matrix / graph for agent connectivity
 
-# initialize agents
+# initialize agents with ID and simulation parameters
 agents = []
 for i in range(Params.num_agents):
   agents.append(agentConstructor.Agent(i, Params))
@@ -42,16 +42,14 @@ def StepTime(last_frame_time):
 """
 environment
 """
-# make time loop for discrete timesteps
 running = True
 last_frame_time = time.time()
 # empty numpy array for environmental state
 ids = np.arange(0, Params.num_agents)
 
-counter = 0
 
 while running:
-  last_frame_time = StepTime(last_frame_time)  # makes loop controllable in time
+  last_frame_time = StepTime(last_frame_time)  # makes loop controllable in realtime
 
   # TODO: increase each agent's phase and SendFlash if phase >= 1
 
@@ -59,4 +57,3 @@ while running:
 
   # TODO: generate new graph for random connectivity every 10 sec
 
-  counter += 1
